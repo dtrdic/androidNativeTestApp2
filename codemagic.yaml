@@ -20,8 +20,9 @@ workflows:
             LATEST_BUILD_NUMBER=$(google-play get-latest-build-number --package-name 'io.codemagic.dtrdic3')
             NEXT_BUILD_NUMBER=$(($LATEST_BUILD_NUMBER + 1))
             cd android
-            ./gradlew bundleRelease --build-name=1.0.$NEXT_BUILD_NUMBER --build-number=$NEXT_BUILD_NUMBER
-
+            ./gradlew bundleRelease \
+            -PversionCode=1.0.$NEXT_BUILD_NUMBER \
+            -PversionName=$NEXT_BUILD_NUMBER
         artifacts:
           - app/build/outputs/**/*.aab
         publishing: 
