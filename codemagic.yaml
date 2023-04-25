@@ -1,0 +1,12 @@
+workflows:
+    native-android:
+        name: Native android
+        max_build_duration: 120
+        instance_type: mac_mini_m1
+        environment:
+          android_signing:
+            - davidKeystore
+          groups:
+            - google_play_credentials
+          vars:
+            PACKAGE_NAME: "io.codemagic.dtrdic6"
