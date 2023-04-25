@@ -23,13 +23,15 @@ def getMyVersionName = { ->
 android {
     namespace 'com.codemagic.dtrdic7'
     compileSdk 33
+        def latestGooglePlayBuildNumber = Integer.valueOf(System.env.LATEST_GOOGLE_PLAY_BUILD_NUMBER ?: System.env.BUILD_NUMBER ?: 0)
+
 
     defaultConfig {
         applicationId "com.codemagic.dtrdic7"
         minSdk 24
         targetSdk 33
-        versionCode getMyVersionCode()
-        versionName getMyVersionName()
+        versionCode latestGooglePlayBuildNumber + 1
+        versionName "1.0." + String.valueOf(latestGooglePlayBuildNumber + 1)
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
