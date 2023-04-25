@@ -17,12 +17,13 @@ workflows:
             echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
         - name: Build Android release
           script: | 
-            LATEST_BUILD_NUMBER=$(google-play get-latest-build-number --package-name 'io.codemagic.dtrdic3')
-            NEXT_BUILD_NUMBER=$(($LATEST_BUILD_NUMBER + 1))
+            LATEST_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
+             NEXT_BUILD_NUMBER=$(($LATEST_BUILD_NUMBER + 1))
+            fi
             cd android
             ./gradlew bundleRelease \
-            -PversionCode=1.0.$NEXT_BUILD_NUMBER \
-            -PversionName=$NEXT_BUILD_NUMBER
+                -PversionCode=$NEXT_BUILD_NUMBER \
+                -PversionName=1.0.$NEXT_BUILD_NUMBER
         artifacts:
           - app/build/outputs/**/*.aab
         publishing: 
