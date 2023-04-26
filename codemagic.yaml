@@ -15,10 +15,6 @@ workflows:
           events:
               - push
               - pull_request
-          branch_patterns:
-              - pattern: main
-                include: true
-                source: true
         scripts:
         - name: Set Android SDK location
           script: | 
