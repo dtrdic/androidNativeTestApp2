@@ -3,9 +3,6 @@ workflows:
         name: Native android
         max_build_duration: 120
         instance_type: mac_mini_m1
-        triggering:
-          events:                   
-            - push
         environment:
           android_signing:
             - davidKeystore
@@ -14,6 +11,14 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7"
           java: 19
+        triggering:
+          events:
+              - push
+              - pull_request
+          branch_patterns:
+              - pattern: develop
+                include: true
+                source: true
         scripts:
         - name: Set Android SDK location
           script: | 
