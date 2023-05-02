@@ -19,7 +19,7 @@ workflows:
           - pattern: "master"
             include: true
             source: false
-          - pattern: "dev"
+          - pattern: "dev2"
             include: true
             source: false
         scripts:
@@ -44,7 +44,7 @@ workflows:
                 -PversionName=1.0.$UPDATED_BUILD_NUMBER
         artifacts:
           - app/build/outputs/**/*.aab
-          
+
         publishing: 
             email:
               recipients:
