@@ -2,7 +2,7 @@ workflows:
     native-android:
         name: Native android
         max_build_duration: 120
-        instance_type: mac_mini_m1
+        instance_type: linux_x2
         environment:
           android_signing:
             - davidKeystore
@@ -16,7 +16,7 @@ workflows:
               - pull_request
               - push
           branch_patterns:
-          - pattern: "master"
+          - pattern: "main"
             include: true
             source: false
           - pattern: "dev"
