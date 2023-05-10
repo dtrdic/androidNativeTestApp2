@@ -31,7 +31,7 @@ android {
         minSdk 24
         targetSdk 33
         versionCode latestGooglePlayBuildNumber + 1
-        versionName "1.0." + String.valueOf(latestGooglePlayBuildNumber + 1)
+        versionName "1.2." + String.valueOf(latestGooglePlayBuildNumber + 1)
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
