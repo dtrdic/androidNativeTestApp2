@@ -7,9 +7,9 @@ workflows:
           android_signing:
             - davidKeystore
           groups:
-            - google_play_credentials
+            - google_play_credentials 
           vars:
-            PACKAGE_NAME: "io.codemagic.dtrdic7"
+            PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 19
         triggering:
           events:
