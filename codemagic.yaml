@@ -4,7 +4,8 @@ workflows:
         max_build_duration: 120
         instance_type: linux_x2
         environment:
-
+          android_signing:
+            - davidKeystore
           groups:
             - google_play_credentials 
           vars:
@@ -28,8 +29,20 @@ workflows:
 
         - name: Build Android release
           script: | 
-            cd android
-              ./gradlew assembleRelease
+            LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
+            if [ -z $LATEST_GOOGLE_PLAY_BUILD_NUMBER ]; then
+              # fallback in case no build number was found from Google Play.
+              # Alternatively, you can `exit 1` to fail the build
+              # BUILD_NUMBER is a Codemagic built-in variable tracking the number
+              # of times this workflow has been built
+                UPDATED_BUILD_NUMBER=$BUILD_NUMBER
+            else
+                UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
+            fi
+            cd $CM_BUILD_DIR/android
+            ./gradlew bundleRelease \
+                -PversionCode=$UPDATED_BUILD_NUMBER \
+                -PversionName=1.0.$UPDATED_BUILD_NUMBER
         artifacts:
           - app/build/outputs/**/*.aab
 
