@@ -34,15 +34,8 @@ workflows:
             set LATEST_GOOGLE_PLAY_BUILD_NUMBER=
             for /f "tokens=*" %%a in ('google-play get-latest-build-number --package-name "%PACKAGE_NAME%"') do set LATEST_GOOGLE_PLAY_BUILD_NUMBER=%%a
 
-            if "%LATEST_GOOGLE_PLAY_BUILD_NUMBER%"=="" (
-                rem fallback in case no build number was found from Google Play.
-                rem Alternatively, you can `exit /b 1` to fail the build
-                rem BUILD_NUMBER is a Codemagic built-in variable tracking the number
-                rem of times this workflow has been built
-                set UPDATED_BUILD_NUMBER=%BUILD_NUMBER%
-            ) else (
                 set /a UPDATED_BUILD_NUMBER=%LATEST_GOOGLE_PLAY_BUILD_NUMBER% + 1
-            )
+            
 
             cd %CM_BUILD_DIR%\android
             gradlew.bat bundleRelease ^
