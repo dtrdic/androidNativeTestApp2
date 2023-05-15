@@ -11,6 +11,7 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 19
+          flutter: 3.10
         triggering:
           events:
               - pull_request
