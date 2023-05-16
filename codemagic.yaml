@@ -38,6 +38,7 @@ workflows:
                 UPDATED_BUILD_NUMBER=$BUILD_NUMBER
             else
                 UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
+                [--tracks testingtrack]
             fi
             cd $CM_BUILD_DIR/android
             ./gradlew bundleRelease \
@@ -54,3 +55,7 @@ workflows:
               notify:
                 success: true
                 failure: false
+            google_play:
+              credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+              track: closed
+              submit_as_draft: true
