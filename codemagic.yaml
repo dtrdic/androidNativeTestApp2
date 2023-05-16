@@ -1,9 +1,9 @@
 definitions: 
   pre-defined-steps: &pre-defined-steps
-    - name: Run analyze
-      script: melos run analyze
-    - name: Run analyze
-      script: melos run analyze
+    - name: Run install
+      script: npm install
+    - name: Run Yarn
+      script: yarn install 
 
 workflows:
     native-android:
@@ -32,7 +32,7 @@ workflows:
 
 
         scripts:
-        - name: steps that are repeating
+        - name: steps that are repeating 
           <<: *pre-defined-steps
 
         - name: Set Android SDK location
