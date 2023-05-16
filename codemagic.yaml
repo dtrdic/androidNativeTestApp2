@@ -1,6 +1,7 @@
 definitions: 
-  pre-defined-steps: &pre-defined-steps
-    - name: Run install
+  scripts: 
+    - &pre-defined-steps
+      name: Run install
       script: npm install
     - name: Run Yarn
       script: yarn install 
@@ -32,8 +33,7 @@ workflows:
 
 
         scripts:
-        - name: steps that are repeating 
-          <<: *pre-defined-steps
+        - *pre-defined-steps
 
         - name: Set Android SDK location
           script: | 
