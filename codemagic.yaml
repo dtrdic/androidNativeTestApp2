@@ -61,7 +61,7 @@ pre-defined-workflows:
               track: testingtrack
               submit_as_draft: true
 
-native-android:
+native-android2:
       name: Native android2
       max_build_duration: 120
       instance_type: linux_x2
