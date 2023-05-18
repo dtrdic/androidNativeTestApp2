@@ -41,7 +41,7 @@ workflows:
                 UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
                 [--tracks testingtrack]
             fi
-            
+            cd $CM_BUILD_DIR/android
             ./gradlew bundleRelease \
                 -PversionCode=$UPDATED_BUILD_NUMBER \
                 -PversionName=1.0.$UPDATED_BUILD_NUMBER
