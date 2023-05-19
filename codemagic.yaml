@@ -57,5 +57,5 @@ workflows:
                 failure: false
             google_play:
               credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-              track: production
+              track: Production
               submit_as_draft: false
