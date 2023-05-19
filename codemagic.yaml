@@ -49,8 +49,8 @@ workflows:
 
         - name: Publish to GitHub
           script: | 
-            gh release create "${CM_TAG}" \
-              path/to/build-artifact.apk
+            gh release create "${CM_COMMIT}" \
+              build/app/outputs/apk/**/*.apk
         artifacts:
           - app/build/outputs/**/*.aab
           - app/build/outputs/**/*.apk
