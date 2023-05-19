@@ -24,38 +24,20 @@ workflows:
             include: true
             source: false
         scripts:
-        - name: Set Android SDK location
-          script: | 
-             echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
-
-        - name: Build Android release
-          script: | 
-            LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
-            if [ -z $LATEST_GOOGLE_PLAY_BUILD_NUMBER ]; then
-              # fallback in case no build number was found from Google Play.
-              # Alternatively, you can `exit 1` to fail the build
-              # BUILD_NUMBER is a Codemagic built-in variable tracking the number
-              # of times this workflow has been built
-                UPDATED_BUILD_NUMBER=$BUILD_NUMBER
-            else
-                UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
-                [--tracks testingtrack]
-            fi
-            ./gradlew bundleRelease \
-                -PversionCode=$UPDATED_BUILD_NUMBER \
-                -PversionName=1.0.$UPDATED_BUILD_NUMBER
+          - name: show gradle info
+            script: gradle --version
+          - name: build apk with flutter
+            script: flutter build apk --release
         artifacts:
-          - app/build/outputs/**/*.aab
-          - app/build/outputs/**/*.apk
-
-        publishing: 
-            email:
-              recipients:
-                - david@nevercode.io
-              notify:
-                success: true
-                failure: false
-            google_play:
-              credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-              track: production 
-              submit_as_draft: false
+          - build/app/outputs/apk/**/*.apk
+        publishing:
+          scripts:
+            - name: publish to Github
+              script: | 
+                #!/usr/bin/env zsh
+                
+                echo "show GITHUB_TOKEN : ${GITHUB_TOKEN}"
+                gh auth login ${GITHUB_TOKEN}
+                gh release create "${CM_COMMIT}" \
+                --title "Sudoku-Flutter#${CM_COMMIT} codemagic build" \
+                --notes-file build/app/outputs/apk/**/*.apk
