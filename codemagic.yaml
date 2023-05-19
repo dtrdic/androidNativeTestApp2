@@ -10,7 +10,6 @@ workflows:
             - google_play_credentials 
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
-          java: 17
 
         triggering:
           events:
