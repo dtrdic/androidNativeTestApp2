@@ -12,6 +12,7 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 17
+          flutter: 3.10.1
 
         triggering:
           events:
