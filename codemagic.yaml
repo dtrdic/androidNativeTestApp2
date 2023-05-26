@@ -32,7 +32,7 @@ workflows:
               echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
           - name: Build the app
             script: | 
-              echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+              echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/local.properties"
               flutter packages pub get
               flutter build apk --release
           - name: Distribute app to firebase with gradle plugin
@@ -77,6 +77,8 @@ workflows:
                 failure: false
             firebase:
               firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
+              android:
+                app_id: androidnativetestapp2
            # google_play:
             #  credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
              # track: production 
