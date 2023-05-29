@@ -58,12 +58,14 @@ android {
 
     buildTypes {
         release {
-                     firebaseAppDistribution {
-            serviceCredentialsFile=System.getenv('GCLOUD_SERVICE_ACCOUNT_CREDENTIALS')
-        }
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+
+            firebaseAppDistribution {
+                serviceCredentialsFile=System.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+        }
         }
     }
     compileOptions {
