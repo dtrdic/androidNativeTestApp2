@@ -8,8 +8,7 @@ workflows:
             - davidKeystore
           groups:
             - google_play_credentials 
-            - githubToken
-            - firebase_credentials
+
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 17
@@ -48,10 +47,7 @@ workflows:
                 -PversionCode=$UPDATED_BUILD_NUMBER \
                 -PversionName=1.0.$UPDATED_BUILD_NUMBER
 
-        - name: Publish to GitHub
-          script: | 
-            gh release create "${CM_COMMIT}" \
-              build/app/outputs/apk/**/*.apk
+
         artifacts:
           - app/build/outputs/**/*.aab
           - app/build/outputs/**/*.apk
