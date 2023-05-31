@@ -59,7 +59,7 @@ workflows:
             fi
             ./gradlew bundleRelease \
                 -PversionCode=$UPDATED_BUILD_NUMBER \
-                -PversionName=1.0.$UPDATED_BUILD_NUMBER
+                -PversionName=1.0.$UPDATED_BUILD_NUMBER \
             $CONDITION
             
 
