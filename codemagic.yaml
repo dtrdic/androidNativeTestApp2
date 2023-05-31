@@ -7,7 +7,7 @@ workflows:
           android_signing:
             - davidKeystore
           groups:
-            - firebase_credentials
+           # - firebase_credentials
             - google_play_credentials
             - condition
           vars:
