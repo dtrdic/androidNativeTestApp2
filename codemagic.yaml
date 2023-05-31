@@ -77,5 +77,5 @@ workflows:
             # firebase:
             #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
             google_play:
-              credentials: $GOOGLE_APPLICATION_CREDENTIALS2
+              credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS2
               track: internal 
