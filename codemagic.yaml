@@ -5,10 +5,10 @@ workflows:
         instance_type: mac_mini_m1
         environment:
           android_signing:
-            - testKeystore
+            - davidKeystore
           groups:
            # - firebase_credentials
-            - google_play_credentials2
+            - google_play_credentials
             - condition
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
@@ -74,5 +74,5 @@ workflows:
             # firebase:
             #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
             google_play:
-              credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS2
+              credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
               track: $TESTINGTRACK 
