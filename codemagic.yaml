@@ -75,4 +75,4 @@ workflows:
             #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
             google_play:
               credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-              track: $TESTINGTRACK 
+              track: testingtrack 
