@@ -18,9 +18,9 @@ workflows:
 # test2
         triggering:
           events:
-              - pull_request
+              - pull_request 
         when:
-            condition: not event.pull_request.draft and event.wrongname.name != "go-codemagic"
+            condition: not event.pull_request.draft and event.wrongname.name != "go-codemagic" and event.
 
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
