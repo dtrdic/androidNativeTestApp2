@@ -2,7 +2,7 @@ workflows:
     native-android:
         name: Native android 
         max_build_duration: 120
-        instance_type: linux_x2
+        instance_type: mac_mini
         environment:
           android_signing:
             - davidKeystore
@@ -13,7 +13,7 @@ workflows:
             - tracks
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
-          java: 19
+          java: 17
 
         triggering:
           events:
@@ -39,18 +39,6 @@ workflows:
         # - name: Distribute app to firebase with gradle plugin
         #   script: | 
         #     cd android && ./gradlew appDistributionUploadRelease
-        - name: Install NDK
-          script: |
-            # Download NDK
-            curl -LO https://dl.google.com/android/repository/android-ndk-r25c-linux.zip
-            
-            # Unzip NDK
-            unzip -q android-ndk-r25c-linux.zip
-            rm android-ndk-r25c-linux.zip
-            
-            # Set NDK environment variable
-            export ANDROID_NDK_HOME=$PWD/android-ndk-r23
-            export PATH=$PATH:$ANDROID_NDK_HOME
 
         - name: Set Android SDK location
           script: | 
