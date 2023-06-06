@@ -14,7 +14,7 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 17
-          ndk: 22
+          ndk: 23
 
         triggering:
           events:
