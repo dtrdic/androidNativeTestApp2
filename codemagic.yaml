@@ -20,7 +20,7 @@ workflows:
           events:
               - pull_request 
         when:
-            condition: event.pull_request.labels.name == "go-codemagic" 
+            condition: pull_request.labels.some(label => label.name === "go-codemagic")
 
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
