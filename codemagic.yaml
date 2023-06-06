@@ -20,7 +20,7 @@ workflows:
           events:
               - pull_request
         when:
-            condition: not event.pull_request.draft 
+            condition: not event.pull_request.draft and event.label.first.name == "go-codemagic"
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
         # branch_patterns:
         #   - pattern: "main"
