@@ -15,12 +15,12 @@ workflows:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 17
 
-# test3
+# test2
         triggering:
           events:
               - pull_request
         when:
-            condition: event.pull_request.draft 
+            condition: not event.pull_request.draft 
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
         # branch_patterns:
         #   - pattern: "main"
