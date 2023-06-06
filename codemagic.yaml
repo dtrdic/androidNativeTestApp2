@@ -20,9 +20,7 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: contains(event.pull_request.labels.*.name, "go-codemagic")
-                    echo "##[set-output name=doesExist;]$(echo $1 | jq '.[].name' | map(select(. == $2)) | length > 0')"
-
+          condition: $LABLE_NAME > contains(event.pull_request.labels.*.name, "go-codemagic")
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
