@@ -15,7 +15,7 @@ workflows:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
           java: 17
 
-# test1
+# test2
         triggering:
           events:
               - pull_request
