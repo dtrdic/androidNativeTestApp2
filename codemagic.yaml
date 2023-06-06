@@ -20,7 +20,7 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: $LABLE_NAME > contains(event.pull_request.labels.*.name, "go-codemagic")
+          condition: echo $LABLE_NAME > contains(event.pull_request.labels.*.name, "go-codemagic")
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
