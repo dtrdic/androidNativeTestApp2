@@ -14,14 +14,14 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
             LABLE_NAME: |
-              event.pull_request.labels.*.name, 'go-codemagic'
+              (event.pull_request.labels.*.name, 'go-codemagic')
           java: 17
 
         triggering:
           events:
               - pull_request 
         when:
-          condition: LABLE_NAME == "go-codemagic"
+          condition: $LABLE_NAME == "go-codemagic"
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
