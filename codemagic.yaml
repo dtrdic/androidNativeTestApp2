@@ -14,7 +14,7 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
             LABLE_NAME: |
-              contains(event.pull_request.labels.*.name, "go-codemagic2")
+              contains(event.pull_request.labels.*.name, "go-codemagic")
           java: 17
 
 # test2
