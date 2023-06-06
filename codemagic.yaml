@@ -22,7 +22,7 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: LABLE_NAME == "go-codemagic"
+          condition: $LABLE_NAME == "go-codemagic"
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
