@@ -20,7 +20,8 @@ workflows:
           events:
               - pull_request 
         when:
-            condition: event.pull_request.labels.map(label => label.name).contains('go-codemagic')
+          condition: "not event.pull_request.draft and not $CM_PULL_REQUEST and not contains(event.pull_request.labels.*.name, 'go-codemagic')"
+            
 
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
