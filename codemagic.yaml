@@ -13,6 +13,8 @@ workflows:
             - tracks
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
+            LABLE_NAME: |
+              contains(event.pull_request.labels.*.name, "go-codemagic")
           java: 17
 
 # test2
@@ -20,7 +22,7 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: echo $LABLE_NAME > contains(event.pull_request.labels.*.name, "go-codemagic")
+          condition: $LABLE_NAME
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
