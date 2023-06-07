@@ -51,7 +51,7 @@ workflows:
 
 
 
-            - if [[ $(echo "${{ event.pull_request.labels.*.name }}" | grep -qF "go-codemagic" && echo true || echo false) == true ]]; then echo "Condition is true"; else echo "Condition is false"; fi
+            if [[ $(echo "${{ event.pull_request.labels.*.name }}" | grep -qF "go-codemagic" && echo true || echo false) == true ]]; then echo "Condition is true"; else echo "Condition is false"; fi
 
             echo "Condition result is: => $LABLE_NAME"
             echo
