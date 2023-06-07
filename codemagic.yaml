@@ -19,15 +19,16 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: not event.label.first.name == "go-codemagic2"
+          condition: and event.pull_request.draft 
 
-         #condition: event.label.first.name == "go-codemagic2" - skipa
 
-         #condition: event.label.first.name == "go-codemagic" - skipa
+         #condition:     event.label.first.name == "go-codemagic2" - SKIP
+         #condition:     event.label.first.name == "go-codemagic" - SKIP
 
-         #condition: not event.label.first.name == "go-codemagic" - ne skipa
+         #condition: not event.label.first.name == "go-codemagic2" - NO SKIP
+         #condition: not event.label.first.name == "go-codemagic" - NO SKIP
 
-         #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ovo ne skipa
+         #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ne skipa
 
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
