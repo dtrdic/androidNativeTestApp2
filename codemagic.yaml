@@ -46,8 +46,7 @@ workflows:
 
         - name: Check Condition
           script: |
-            echo "Condition2 is $(echo "${{ toJSON(event.pull_request.labels.*.name) }}" | grep -qF "go-codemagic" && echo true || echo false)"
-
+            echo "Condition is {% if 'go-codemagic' in event.pull_request.labels|map(attribute='name') %}true{% else %}false{% endif %}"
             echo "Condition result is: => $LABLE_NAME"
             echo
 
