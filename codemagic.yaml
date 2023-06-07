@@ -20,8 +20,8 @@ workflows:
         triggering:
           events:
               - pull_request 
-        when:
-          condition: LABLE_NAME == "go-codemagic"
+        # when:
+        #   condition: LABLE_NAME == "go-codemagic"
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
@@ -44,6 +44,13 @@ workflows:
         # - name: Distribute app to firebase with gradle plugin
         #   script: | 
         #     cd android && ./gradlew appDistributionUploadRelease
+
+        - name: Check Condition
+          script: |
+            CONDITION = $(event.pull_request.labels.*.name, 'go-codemagic')
+
+            echo
+            echo "Condition result is: => $CONDITION"
 
 
         - name: Set Android SDK location
