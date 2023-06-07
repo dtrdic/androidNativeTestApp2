@@ -19,8 +19,9 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: not event.label.first.name == "go-codemagic"
+          condition: event.label.first.name == "go-codemagic"
 
+         #condition: not event.label.first.name == "go-codemagic" - ne skipa
 
          #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ovo ne skipa
 
