@@ -53,12 +53,6 @@ workflows:
               echo "Condition is false"
             fi
 
-            CM_PULL_REQUEST_LABELS=$(contains(event.pull_request.labels.*.name, "go-codemagic"))
-
-      
-
-              echo "Condition is $CM_PULL_REQUEST_LABELS"
-
 
         - name: Set Android SDK location
           script: | 
