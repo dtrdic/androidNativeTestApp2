@@ -47,13 +47,13 @@ workflows:
         - name: Check Condition
           script: |
 
-            if [[ "${{ toJson(event.pull_request.labels.*.name) }}" == *'"go-codemagic"'* ]]; then
+            if echo "${{ toJSON(event.pull_request.labels) }}" | jq -e '.[].name | contains("go-codemagic")' > /dev/null; then
               echo "Condition is true"
             else
               echo "Condition is false"
             fi
-            
-            CM_PULL_REQUEST_LABELS=$(contains(event.pull_request.labels.*.name "go-codemagic"))
+
+            CM_PULL_REQUEST_LABELS=$(contains(event.pull_request.labels.*.name, "go-codemagic"))
 
       
 
