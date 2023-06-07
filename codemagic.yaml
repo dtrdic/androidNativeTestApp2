@@ -48,7 +48,7 @@ workflows:
         - name: Check Condition
           script: |
             CONDITION=$(event.pull_request.labels.*.name, "go-codemagic")
-            LATEST=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="testingtrack")
+            LATEST=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
 
 
             echo
@@ -63,7 +63,7 @@ workflows:
 
         - name: Build Android release
           script: | 
-            LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="testingtrack")
+            LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
             if [ -z $LATEST_GOOGLE_PLAY_BUILD_NUMBER ]; then
               # fallback in case no build number was found from Google Play.
               # Alternatively, you can `exit 1` to fail the build
@@ -92,4 +92,4 @@ workflows:
             #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
             google_play:
               credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-              track: "$TESTINGTRACK"
+              track: testingtrack
