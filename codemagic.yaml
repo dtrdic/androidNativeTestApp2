@@ -46,15 +46,9 @@ workflows:
 
         - name: Check Condition
           script: |
-            CM_PULL_REQUEST_LABELS=$(echo "${{ toJSON(event.pull_request.labels) }}" | jq -r '.[].name' | tr '\n' ',')
+            CM_PULL_REQUEST_LABELS=$(echo "${{ toJSON(event.pull_request.labels) }}" | jq -r '.[].name' | grep -q "go-codemagic" && echo "true" || echo "false")
 
-            if [[ "${CM_PULL_REQUEST_LABELS}" == *'go-codemagic'* ]]; then
-              export CONDITION_RESULT="true"
-            else
-              export CONDITION_RESULT="false"
-            fi
-
-            echo "Condition is $CONDITION_RESULT"
+            echo "Condition is $CM_PULL_REQUEST_LABELS"
 
 
         - name: Set Android SDK location
