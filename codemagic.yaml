@@ -47,7 +47,7 @@ workflows:
 
         - name: Check Condition
           script: |
-            CONDITION=$event.pull_request.labels.*.name, "go-codemagic"
+            CONDITION=$event.pull_request.labels.*.name, 'go-codemagic'
             LATEST=$CM_BUILD_DIR/local.properties
 
 
