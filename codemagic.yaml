@@ -19,7 +19,9 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: event.label.first.name == "go-codemagic2"
+          condition: not event.label.first.name == "go-codemagic2"
+
+         #condition: event.label.first.name == "go-codemagic2" - skipa
 
          #condition: event.label.first.name == "go-codemagic" - skipa
 
