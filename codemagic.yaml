@@ -13,8 +13,7 @@ workflows:
             - tracks
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
-            LABLE_NAME: |
-              $(echo ${{ event.pull_request.labels.*.name }} | grep -qF "go-codemagic" && echo true || echo false)
+            LABLE_NAME: ${{ toJSON(event.pull_request.labels.*.name) }}
           java: 17
 
         triggering:
@@ -51,7 +50,7 @@ workflows:
 
 
 
-            if [[ $(echo "${{ event.pull_request.labels.*.name }}" | grep -qF "go-codemagic" && echo true || echo false) == true ]]; then echo "Condition is true"; else echo "Condition is false"; fi
+            if echo "${LABLE_NAME}" | grep -qF "go-codemagic"; then echo "Condition is true"; else echo "Condition is false"; fi
 
             echo "Condition result is: => $LABLE_NAME"
             echo
