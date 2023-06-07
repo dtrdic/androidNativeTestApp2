@@ -19,7 +19,9 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: not event.pull_request.labels[0].name == "go-codemagic"
+          condition: not event.pull_request.labels[0].name == "go-codemagic2"
+          
+          #condition: not event.pull_request.labels[0].name == "go-codemagic" - SKIP
 
           #condition: event.pull_request.labels[0].name == "go-codemagic" - PASS (NO SKIPP)
 
