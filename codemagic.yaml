@@ -48,7 +48,7 @@ workflows:
         - name: Check Condition
           script: |
             CONDITION=$(event.pull_request.labels.*.name, "go-codemagic")
-            LATEST=LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$TESTINGTRACK")
+            LATEST=LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$testingtrack")
 
 
             echo
