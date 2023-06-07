@@ -47,7 +47,7 @@ workflows:
         - name: Check Condition
           script: |
 
-           CM_PULL_REQUEST_LABELS=$(contains(event.pull_request.labels.*.name, "go-codemagic"))
+           CM_PULL_REQUEST_LABELS=$(contains(event.pull_request.labels.*.name "go-codemagic"))
 
     
 
