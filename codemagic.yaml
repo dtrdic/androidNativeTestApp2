@@ -14,7 +14,7 @@ workflows:
           vars:
             PACKAGE_NAME: "io.codemagic.dtrdic7" 
             LABLE_NAME: |
-              (event.pull_request.labels.*.name, 'go-codemagic')
+              $(echo ${{ event.pull_request.labels.*.name }} | grep -qF "go-codemagic" && echo true || echo false)
           java: 17
 
         triggering:
@@ -48,12 +48,11 @@ workflows:
         - name: Check Condition
           script: |
             CONDITION=$event.pull_request.labels.*.name
-            LATEST=$CM_BUILD_DIR/local.properties
+
 
 
             echo
-            echo "Test is: => $LATEST"
-            echo "Condition result is: => $CONDITION"
+            echo "Condition result is: => $LABLE_NAME"
             echo
 
 
