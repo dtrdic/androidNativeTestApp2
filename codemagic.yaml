@@ -46,9 +46,9 @@ workflows:
 
         - name: Check Condition
           script: |
-            CM_PULL_REQUEST_LABELS=${{ toJSON(event.pull_request.labels.*.name) }}
+            CM_PULL_REQUEST_LABELS=$(echo "${{ toJSON(event.pull_request.labels) }}" | jq -r '.[].name' | tr '\n' ',')
 
-            if [[ $(echo "${CM_PULL_REQUEST_LABELS}" | grep -c "go-codemagic") -gt 0 ]]; then
+            if [[ "${CM_PULL_REQUEST_LABELS}" == *'go-codemagic'* ]]; then
               export CONDITION_RESULT="true"
             else
               export CONDITION_RESULT="false"
