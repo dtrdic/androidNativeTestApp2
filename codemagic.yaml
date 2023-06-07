@@ -52,7 +52,7 @@ workflows:
 
 
             echo
-            echo "Test is: $LATEST"
+            echo "Test is: => $LATEST"
             echo "Condition result is: => $CONDITION"
             echo
 
