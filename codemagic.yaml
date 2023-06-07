@@ -46,7 +46,7 @@ workflows:
 
         - name: Check Condition
           script: |
-            LABELS=${{ contains(pull_request.labels.*.name, "go-codemagic") }}
+            LABELS=$contains(pull_request.labels.*.name, "go-codemagic")
 
             CM_PULL_REQUEST_LABELS=$(echo "$LABELS" | jq -r '.labels[].name' | grep -c "go-codemagic")
 
