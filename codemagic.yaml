@@ -19,7 +19,7 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: not event.pull_request.draft and not event.label.first.name == "go-codemagic2"
+          condition: not event.label.first.name == "go-codemagic2"
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
             #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
@@ -42,16 +42,6 @@ workflows:
         # - name: Distribute app to firebase with gradle plugin
         #   script: | 
         #     cd android && ./gradlew appDistributionUploadRelease
-
-        - name: Check Condition
-          script: |
-
-            if echo "${{ toJSON(event.pull_request.labels) }}" | jq -e '.[].name | contains("go-codemagic")' > /dev/null; then
-              echo "Condition is true"
-            else
-              echo "Condition is false"
-            fi
-
 
         - name: Set Android SDK location
           script: | 
