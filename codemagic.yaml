@@ -46,7 +46,7 @@ workflows:
 
         - name: Check Condition
           script: |
-            CONDITION=$event.pull_request.labels.*.name
+            echo "lable name is => $LABLE_NAME"
 
 
 
