@@ -19,7 +19,7 @@ workflows:
           events:
               - pull_request 
         when:
-          condition: event.pull_request.draft 
+          condition: not event.pull_request.draft 
 
 
          #condition:     event.label.first.name == "go-codemagic2" - SKIP
