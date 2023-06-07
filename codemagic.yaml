@@ -17,7 +17,12 @@ workflows:
 
         triggering:
           events:
-              - pull_request  
+              - pull_request
+          branch_patterns:
+            - pattern: "main"
+              include: true
+              source: false
+
         # when:
         #   condition: not event.pull_request.labels[0].name == "go-codemagic"
 
