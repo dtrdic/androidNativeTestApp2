@@ -23,8 +23,10 @@ workflows:
             include: true
             source: false
       when:
-        condition: vent.pull_request.labels != []
+        condition: not vent.pull_request.labels != []
  
+        #vent.pull_request.labels != [] - NE Skipa - ima label
+        # vent.pull_request.labels != [] - ne skipa - Nema label
         #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - IMA label
         #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - No label
         #(event.pull_request.labels == null or event.pull_request.labels.length == 0) - SKIPA - NO label
