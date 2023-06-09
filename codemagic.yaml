@@ -25,6 +25,7 @@ workflows:
       when:
         condition: event.pull_request.labels == []
 
+        #event.pull_request.labels == [] - skipa - has label 
         #not event.pull_request.labels == [] - no skip - has label
 
         #not vent.pull_request.labels == [] - NO SKIP - NOT have label
