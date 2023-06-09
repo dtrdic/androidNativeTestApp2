@@ -23,13 +23,15 @@ workflows:
             include: true
             source: false
       when:
-        condition: not vent.pull_request.labels != []
- 
-        #not vent.pull_request.labels != [] - SKIPA - ima label
+        condition: not vent.pull_request.labels == []
 
-        #vent.pull_request.labels != [] - NE Skipa - ima label
-        # vent.pull_request.labels != [] - ne skipa - Nema label
-        
+
+        #not vent.pull_request.labels != [] - SKIPS - NOT have label
+        #not vent.pull_request.labels != [] - SKIPS - has label
+
+        # vent.pull_request.labels != [] - NO SKIP - has label
+        # vent.pull_request.labels != [] - NO SKIP - NOT have label
+
         #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - IMA label
         #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - No label
         #(event.pull_request.labels == null or event.pull_request.labels.length == 0) - SKIPA - NO label
