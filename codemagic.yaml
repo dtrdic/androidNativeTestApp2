@@ -23,7 +23,9 @@ workflows:
             include: true
             source: false
       when:
-        condition: not event.pull_request.labels == []
+        condition: event.pull_request.labels == []
+
+        #not event.pull_request.labels == [] - no skip - has label
 
         #not vent.pull_request.labels == [] - NO SKIP - NOT have label
         #not vent.pull_request.labels == [] - NO SKIP - has label
