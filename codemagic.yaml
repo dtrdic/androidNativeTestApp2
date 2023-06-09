@@ -1,5 +1,111 @@
 workflows:
     native-android:
+      name: Native android 
+      max_build_duration: 120
+      instance_type: mac_mini_m1
+      environment:
+        android_signing:
+          - davidKeystore
+        groups:
+        # - firebase_credentials
+          - google_play_credentials
+          - condition
+          - tracks
+        vars:
+          PACKAGE_NAME: "io.codemagic.dtrdic7" 
+        java: 17
+
+      triggering:
+        events:
+            - pull_request
+        branch_patterns:
+          - pattern: "*"
+            include: true
+            source: false
+
+      when:
+        condition: not event.pull_request.labels[0].name == "go-codemagic"
+
+
+        #condition: not event.pull_request.labels[0].name == "go-codemagic" - SKIP
+
+        #condition: not event.pull_request.labels[0].name == "go-codemagic2" -NO SIKP
+        #condition: event.pull_request.labels[0].name == "go-codemagic" - PASS (NO SKIPP)
+
+
+        #condition: event.pull_request.draft  - NO SKIP
+        #condition: not event.pull_request.draft - SKIP
+
+
+      #condition:     event.label.first.name == "go-codemagic2" - SKIP
+      #condition:     event.label.first.name == "go-codemagic" - SKIP
+
+      #condition: not event.label.first.name == "go-codemagic2" - NO SKIP
+      #condition: not event.label.first.name == "go-codemagic" - NO SKIP
+
+      #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ne skipa
+
+
+          #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
+          #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
+      # branch_patterns:
+      #   - pattern: "main"
+      #     include: true
+      #     source: false
+      #   - pattern: "dev"
+      #     include: true
+      #     source: false
+      scripts:
+      # - name: Decode Google credentials
+      #   script: | 
+      #     echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
+      # - name: Build the app
+      #   script: | 
+      #     echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/local.properties"
+      #     flutter packages pub get
+      #     flutter build apk --release
+      # - name: Distribute app to firebase with gradle plugin
+      #   script: | 
+      #     cd android && ./gradlew appDistributionUploadRelease
+
+      - name: Set Android SDK location
+        script: | 
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+
+      - name: Build Android release
+        script: | 
+          LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
+          if [ -z $LATEST_GOOGLE_PLAY_BUILD_NUMBER ]; then
+            # fallback in case no build number was found from Google Play.
+            # Alternatively, you can `exit 1` to fail the build
+            # BUILD_NUMBER is a Codemagic built-in variable tracking the number
+            # of times this workflow has been built
+              UPDATED_BUILD_NUMBER=$BUILD_NUMBER
+          else
+              UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
+              [--tracks testingtrack]
+          fi
+          ./gradlew bundleRelease \
+              -PversionCode=$UPDATED_BUILD_NUMBER \
+              -PversionName=1.0.$UPDATED_BUILD_NUMBER 
+      artifacts:
+        - app/build/outputs/**/*.aab
+        - app/build/outputs/**/*.apk
+
+      publishing: 
+          email:
+            recipients:
+              - david@nevercode.io
+            notify:
+              success: true
+              failure: false
+          # firebase:
+          #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
+          google_play:
+            credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+            track: testingtrack
+
+    tests-pull-request:
         name: Native android 
         max_build_duration: 120
         instance_type: mac_mini_m1
@@ -7,7 +113,7 @@ workflows:
           android_signing:
             - davidKeystore
           groups:
-           # - firebase_credentials
+            # - firebase_credentials
             - google_play_credentials
             - condition
             - tracks
@@ -24,7 +130,7 @@ workflows:
               source: false
 
         when:
-          condition: not event.pull_request.labels[0].name == "go-codemagic2"
+          condition: not event.pull_request.labels[0].name == "go-codemagic"
 
 
           #condition: not event.pull_request.labels[0].name == "go-codemagic" - SKIP
@@ -37,13 +143,13 @@ workflows:
           #condition: not event.pull_request.draft - SKIP
 
 
-         #condition:     event.label.first.name == "go-codemagic2" - SKIP
-         #condition:     event.label.first.name == "go-codemagic" - SKIP
+          #condition:     event.label.first.name == "go-codemagic2" - SKIP
+          #condition:     event.label.first.name == "go-codemagic" - SKIP
 
-         #condition: not event.label.first.name == "go-codemagic2" - NO SKIP
-         #condition: not event.label.first.name == "go-codemagic" - NO SKIP
+          #condition: not event.label.first.name == "go-codemagic2" - NO SKIP
+          #condition: not event.label.first.name == "go-codemagic" - NO SKIP
 
-         #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ne skipa
+          #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ne skipa
 
 
             #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
@@ -70,7 +176,7 @@ workflows:
 
         - name: Set Android SDK location
           script: | 
-             echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+              echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
         - name: Build Android release
           script: | 
@@ -104,3 +210,4 @@ workflows:
             google_play:
               credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
               track: testingtrack
+
