@@ -24,7 +24,7 @@ workflows:
             source: false
       when:
         condition: vent.pull_request.labels != []
-
+ 
         #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - IMA label
         #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - No label
         #(event.pull_request.labels == null or event.pull_request.labels.length == 0) - SKIPA - NO label
