@@ -25,6 +25,8 @@ workflows:
       when:
         condition: not vent.pull_request.labels == []
 
+        #not vent.pull_request.labels == []
+        #not vent.pull_request.labels == [] - NO SKIP - NOT have label
 
         #not vent.pull_request.labels != [] - SKIPS - NOT have label
         #not vent.pull_request.labels != [] - SKIPS - has label
