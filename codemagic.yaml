@@ -130,7 +130,7 @@ workflows:
               source: false
 
         when:
-          condition: not event.pull_request.labels[0].name == "go-codemagic"
+          condition: not event.pull_request.labels[0].name == "go-codemagic" 
 
 
           #condition: not event.pull_request.labels[0].name == "go-codemagic" - SKIP
