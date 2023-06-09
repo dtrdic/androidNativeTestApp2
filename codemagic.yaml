@@ -23,7 +23,7 @@ workflows:
             include: true
             source: false
       when:
-        condition: ${{ ne(event.pull_request.labels, null) && event.pull_request.labels.length > 0 && event.pull_request.labels[0].name == "go-codemagic" }}
+        condition: event.pull_request.labels.length > 0 and event.pull_request.labels[0].name == "go-codemagic"
 
 
         #condition: not event.pull_request.labels[0].name == "go-codemagic" - SKIP
