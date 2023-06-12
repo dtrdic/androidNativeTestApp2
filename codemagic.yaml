@@ -17,7 +17,7 @@ workflows:
 
       triggering:
         events:
-            - pull_request
+            #- pull_request
             - push
         branch_patterns:
           - pattern: "*"
