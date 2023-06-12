@@ -18,60 +18,14 @@ workflows:
       triggering:
         events:
             - pull_request
+            - push
         branch_patterns:
           - pattern: "*"
             include: true
             source: false
-      when:
-        condition: event.pull_request.labels == []
+      # when:
+      #   condition: event.pull_request.labels == []
 
-        #event.pull_request.labels == [] - skipa - has label 
-        #not event.pull_request.labels == [] - no skip - has label
-
-        #not vent.pull_request.labels == [] - NO SKIP - NOT have label
-        #not vent.pull_request.labels == [] - NO SKIP - has label
-
-        #not vent.pull_request.labels != [] - SKIPS - NOT have label
-        #not vent.pull_request.labels != [] - SKIPS - has label
-
-        # vent.pull_request.labels != [] - NO SKIP - NOT have label
-        # vent.pull_request.labels != [] - NO SKIP - has label
-
-        #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - IMA label
-        #(not event.pull_request.labels == null or not event.pull_request.labels.length == 0) - NE SKIPA - No label
-        #(event.pull_request.labels == null or event.pull_request.labels.length == 0) - SKIPA - NO label
-
-        # and event.pull_request.labels[0].name == "go-codemagic2"
-
-
-        #condition: not event.pull_request.labels[0].name == "go-codemagic" - SKIP
-
-        #condition: not event.pull_request.labels[0].name == "go-codemagic2" -NO SIKP
-        #condition: event.pull_request.labels[0].name == "go-codemagic" - PASS (NO SKIPP)
-
-
-        #condition: event.pull_request.draft  - NO SKIP
-        #condition: not event.pull_request.draft - SKIP
-
-
-      #condition:     event.label.first.name == "go-codemagic2" - SKIP
-      #condition:     event.label.first.name == "go-codemagic" - SKIP
-
-      #condition: not event.label.first.name == "go-codemagic2" - NO SKIP
-      #condition: not event.label.first.name == "go-codemagic" - NO SKIP
-
-      #condition: not event.label.first.name == "go-codemagic" and event.pull_request.draft - ne skipa
-
-
-          #and event.label.first.name != "go-codemagic" and not $CM_PULL_REQUEST
-          #and event.label.first.name == "go-codemagic" and $CM_PULL_REQUEST"
-      # branch_patterns:
-      #   - pattern: "main"
-      #     include: true
-      #     source: false
-      #   - pattern: "dev"
-      #     include: true
-      #     source: false
       scripts:
       # - name: Decode Google credentials
       #   script: | 
