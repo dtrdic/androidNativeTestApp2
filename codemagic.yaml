@@ -24,8 +24,10 @@ workflows:
             include: true
             source: false
       when:
-        condition: not event.pull_request.draft
+        condition: event.pull_request.draft
         
+        #condition: not event.pull_request.draft -skipa
+
         #and (event.pull_request.labels[0].name == "go-codemagic2") - SKIPA
 
 #(event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic2")
