@@ -19,24 +19,25 @@ workflows:
         events:
             - pull_request
             #- push
-        branch_patterns:
-          - pattern: "*"
-            include: true
-            source: false
+        # branch_patterns:
+        #   - pattern: "*"
+        #     include: true
+        #     source: false
       when:
-        condition: (not event.pull_request.labels[0].name == "go-codemagic33333") and (not event.pull_request.draft)
+        condition: (event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft)
 
-        #condition: (not event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA
-       # condition: not event.pull_request.labels[0].name == "go-codemagic" and not event.pull_request.draft - SKIPA
+        #condition:(not event.pull_request.labels[0].name == "go-codemagic33333") and (not event.pull_request.draft) - SKIPA
+        #condition:(not event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA
+        #condition: not event.pull_request.labels[0].name == "go-codemagic" and not event.pull_request.draft - SKIPA
         
         #condition: not event.pull_request.labels[0].name == "go-codemagic2" - ne skipa
-        #condition: event.pull_request.labels[0].name == "go-codemagic" - ne skipa
+        #condition:     event.pull_request.labels[0].name == "go-codemagic" - ne skipa
 
         #condition: not event.pull_request.labels[0].name == "go-codemagic" -SKIPA
-        #condition: event.pull_request.labels[0].name == "go-codemagic2" - SKIPA
+        #condition:     event.pull_request.labels[0].name == "go-codemagic2" - SKIPA
         
         #condition: not event.pull_request.draft -skipa
-        #condition: event.pull_request.draft -ne skipa
+        #condition:     event.pull_request.draft -ne skipa
 
         #and (event.pull_request.labels[0].name == "go-codemagic2") - SKIPA
 
