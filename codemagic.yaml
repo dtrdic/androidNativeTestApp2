@@ -17,14 +17,14 @@ workflows:
 
       triggering:
         events:
-            #- pull_request
+            - pull_request
             - push
         branch_patterns:
           - pattern: "*"
             include: true
             source: false
-      # when:
-      #   condition: event.pull_request.labels == []
+      when:
+        condition: (not event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic")
 
       scripts:
       # - name: Decode Google credentials
