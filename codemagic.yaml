@@ -24,8 +24,9 @@ workflows:
             include: true
             source: false
       when:
-        condition: (not event.pull_request.draft) and (not event.pull_request.labels[0].name == "go-codemagic2)"
+        condition: (not event.pull_request.draft) and (not event.pull_request.labels[0].name == "go-codemagic2")
 
+#(not event.pull_request.draft) and (not event.pull_request.labels[0].name == "go-codemagic2)"
 #(not event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic2)" - skipa ALI ima drugi label
 #(event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic") - ne skipa i ima label
 #(not event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic") skipa i ima label
