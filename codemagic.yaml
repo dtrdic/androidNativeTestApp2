@@ -26,7 +26,7 @@ workflows:
       when:
         condition: (event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft)
 
-        #condition: (event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA
+        #condition: (event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA 
 
         #condition:(not event.pull_request.labels[0].name == "go-codemagic33333") and (not event.pull_request.draft) - SKIPA
         #condition:(not event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA
