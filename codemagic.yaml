@@ -2,7 +2,7 @@ workflows:
     native-android:
       name: Native android 
       max_build_duration: 120
-      instance_type: mac_mini_m1
+      instance_type: linux_x2
       environment:
         java: 17
         android_signing:
@@ -86,6 +86,10 @@ workflows:
           ./gradlew bundleRelease \
               -PversionCode=$UPDATED_BUILD_NUMBER \
               -PversionName=1.0.$UPDATED_BUILD_NUMBER 
+
+      - name: Run emulator
+        script: | 
+          emulator -avd emulator
       artifacts:
         - app/build/outputs/**/*.aab 
         - app/build/outputs/**/*.apk
