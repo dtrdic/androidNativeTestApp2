@@ -4,7 +4,7 @@ workflows:
       max_build_duration: 120
       instance_type: linux_x2
       environment:
-        java: 17
+        java: 11
         android_signing:
           - davidKeystore
         groups:
@@ -88,7 +88,7 @@ workflows:
               -PversionName=1.0.$UPDATED_BUILD_NUMBER 
       - name: Run list
         script: | 
-          emulator -list-avds
+          emulator -list-avds --verbose
       - name: Run emulator
         script: | 
           emulator -avd emulator
