@@ -90,6 +90,10 @@ workflows:
       - name: Run emulator
         script: | 
           emulator -avd emulator
+      - name: Run list
+        script: | 
+          emulator -list-avds
+
       artifacts:
         - app/build/outputs/**/*.aab 
         - app/build/outputs/**/*.apk
