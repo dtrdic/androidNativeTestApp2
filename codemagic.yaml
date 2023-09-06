@@ -90,8 +90,8 @@ workflows:
         script: | 
           emulator -list-avds --verbose
          
-          echo "ANDROID_AVD_HOM=  $ANDROID_AVD_HOME"
-          echo "ANDROID_SDK_HOME=  $ANDROID_SDK_HOME"
+          echo "ANDROID_AVD_HOM= $ANDROID_AVD_HOME"
+          echo "ANDROID_SDK_HOME= $ANDROID_SDK_HOME"
           echo "HOME= $HOME"
       - name: Run emulator
         script: | 
