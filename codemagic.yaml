@@ -2,7 +2,7 @@ workflows:
     native-android:
       name: Native android 
       max_build_duration: 120
-      instance_type: linux_x2
+      instance_type: mac_pro
       environment:
         java: 17
         android_signing:
@@ -92,7 +92,7 @@ workflows:
          
           echo "ANDROID_AVD_HOM= $ANDROID_AVD_HOME"
           echo "ANDROID_SDK_HOME= $ANDROID_SDK_HOME"
-          echo "HOME= $HOME"
+          echo "HOME= $HOME" #here is no file emulator.ini in $HOME/.android/avd - zapravo nema avd foldera
       - name: Run emulator
         script: | 
           emulator -avd emulator
