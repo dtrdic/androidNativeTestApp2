@@ -77,7 +77,10 @@ workflows:
               -PversionName=1.0.$UPDATED_BUILD_NUMBER 
       - name: Run list
         script: | 
-          emulator -list-avds --verbose
+          adb kill-server
+          adb start-server
+
+          emulator -list-avds
          
           echo "ANDROID_AVD_HOM= $ANDROID_AVD_HOME"
           echo "ANDROID_SDK_HOME= $ANDROID_SDK_HOME"
