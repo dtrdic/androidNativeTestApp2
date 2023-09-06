@@ -86,14 +86,12 @@ workflows:
           ./gradlew bundleRelease \
               -PversionCode=$UPDATED_BUILD_NUMBER \
               -PversionName=1.0.$UPDATED_BUILD_NUMBER 
-
-      - name: Run emulator
-        script: | 
-          emulator -avd emulator
       - name: Run list
         script: | 
           emulator -list-avds
-
+      - name: Run emulator
+        script: | 
+          emulator -avd emulator
       artifacts:
         - app/build/outputs/**/*.aab 
         - app/build/outputs/**/*.apk
