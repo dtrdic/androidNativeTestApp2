@@ -5,6 +5,7 @@ workflows:
       instance_type: mac_pro
       environment:
         xcode: 14.2
+        java: 17
         android_signing:
           - davidKeystore
         groups:
@@ -54,18 +55,6 @@ workflows:
       #           (not event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic") skipa i ima label
 
       scripts:
-      # - name: Decode Google credentials
-      #   script: | 
-      #     echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
-      # - name: Build the app
-      #   script: | 
-      #     echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/local.properties"
-      #     flutter packages pub get
-      #     flutter build apk --release
-      # - name: Distribute app to firebase with gradle plugin
-      #   script: | 
-      #     cd android && ./gradlew appDistributionUploadRelease
-
       - name: Set Android SDK location
         script: | 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
