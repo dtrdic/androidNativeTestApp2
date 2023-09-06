@@ -77,8 +77,7 @@ workflows:
               -PversionName=1.0.$UPDATED_BUILD_NUMBER 
       - name: Run list
         script: | 
-          adb kill-server
-          adb start-server
+
 
           emulator -list-avds
          
@@ -87,7 +86,9 @@ workflows:
           echo "HOME= $HOME" #here is no file emulator.ini in $HOME/.android/avd - zapravo nema avd foldera
       - name: Run emulator
         script: | 
-          emulator -avd emulator
+          cd $ANDROID_HOME/tools
+          emulator -avd emulator &
+          adb wait-for-device
       artifacts:
         - app/build/outputs/**/*.aab 
         - app/build/outputs/**/*.apk
