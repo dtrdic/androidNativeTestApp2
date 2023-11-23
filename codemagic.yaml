@@ -57,11 +57,11 @@ workflows:
       scripts:
       - name: Set Android SDK location
         script: | 
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
           NDK_VER=$(ls $ANDROID_SDK_ROOT/ndk | head -1)
 
-          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/$NDK_VER" >> "$CM_BUILD_DIR/android/local.properties"
+          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/$NDK_VER" >> "$CM_BUILD_DIR/local.properties"
 
       - name: Build Android release
         script: | 
