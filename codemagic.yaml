@@ -1,78 +1,114 @@
 workflows:
     native-android:
-        name: Native android 
-        max_build_duration: 120
-        instance_type: mac_mini_m1
-        environment:
-          android_signing:
-            - davidKeystore
-          groups:
-           # - firebase_credentials
-            - google_play_credentials
-            - condition
-            - tracks
-          vars:
-            PACKAGE_NAME: "io.codemagic.dtrdic7" 
-          java: 17
+      name: Native android 
+      max_build_duration: 120
+      instance_type: mac_mini_m1
+      environment:
+        # java: 8
+        # ndk: 21.4.7075529
+        flutter: 3.3.10
+        android_signing:
+          - davidKeystore
+        groups:
+        # - firebase_credentials
+          - google_credentials3
+          - condition
+          - tracks
+        vars:
+          PACKAGE_NAME: "io.codemagic.dtrdic7" 
+      triggering:
+        events:
+            #- pull_request
+            - push
+        branch_patterns:
+          - pattern: "*"
+            include: true
+            source: false
+      # when:
+      #   condition: (not event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft)
 
-        triggering:
-          events:
-              - pull_request
-        when:
-            condition: not event.pull_request.draft
-        # branch_patterns:
-        #   - pattern: "main"
-        #     include: true
-        #     source: false
-        #   - pattern: "dev"
-        #     include: true
-        #     source: false
-        scripts:
-        # - name: Decode Google credentials
-        #   script: | 
-        #     echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
-        # - name: Build the app
-        #   script: | 
-        #     echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/local.properties"
-        #     flutter packages pub get
-        #     flutter build apk --release
-        # - name: Distribute app to firebase with gradle plugin
-        #   script: | 
-        #     cd android && ./gradlew appDistributionUploadRelease
+      #           and (event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA
 
-        - name: Set Android SDK location
-          script: | 
-             echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      #           (not event.pull_request.labels[0].name == "go-codemagic33333") and (not event.pull_request.draft) - SKIPA
+      #           condition:(not event.pull_request.labels[0].name == "go-codemagic") and (not event.pull_request.draft) - SKIPA
+      #           condition: not event.pull_request.labels[0].name == "go-codemagic" and not event.pull_request.draft - SKIPA
+                
+      #           condition:     event.pull_request.labels[0].name == "go-codemagic" - ne skipa
+      #           condition: not event.pull_request.labels[0].name == "go-codemagic2" - ne skipa
 
-        - name: Build Android release
-          script: | 
-            LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$TESTINGTRACK")
-            if [ -z $LATEST_GOOGLE_PLAY_BUILD_NUMBER ]; then
-              # fallback in case no build number was found from Google Play.
-              # Alternatively, you can `exit 1` to fail the build
-              # BUILD_NUMBER is a Codemagic built-in variable tracking the number
-              # of times this workflow has been built
-                UPDATED_BUILD_NUMBER=$BUILD_NUMBER
-            else
-                UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
-                [--tracks testingtrack]
-            fi
-            ./gradlew bundleRelease \
-                -PversionCode=$UPDATED_BUILD_NUMBER \
-                -PversionName=1.0.$UPDATED_BUILD_NUMBER 
-        artifacts:
-          - app/build/outputs/**/*.aab
-          - app/build/outputs/**/*.apk
+      #           condition: not event.pull_request.labels[0].name == "go-codemagic" -SKIPA
+      #           condition:     event.pull_request.labels[0].name == "go-codemagic2" - SKIPA
+                
+      #           condition: not event.pull_request.draft -skipa
+      #           condition:     event.pull_request.draft -ne skipa
 
-        publishing: 
-            email:
-              recipients:
-                - david@nevercode.io
-              notify:
-                success: true
-                failure: false
-            # firebase:
-            #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
-            google_play:
-              credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-              track: "$TESTINGTRACK"
+      #           (event.pull_request.labels[0].name == "go-codemagic2") - SKIPA
+
+      #           (event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic2")
+      #             (event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic") - NE SKIPA jer je sve tocno
+                        
+      #           (event.pull_request.draft) and (event.pull_request.labels[0].name == "TEST") - skipa
+      #           (event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic2") - skipa
+      #           (event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic") - ne skipa i ima label
+
+      #           (not event.pull_request.draft) and (not event.pull_request.labels[0].name == "go-codemagic2)" - skipa ALI ima drugi label
+      #           (not event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic2)" - skipa ALI ima drugi label
+      #           (not event.pull_request.draft) and (event.pull_request.labels[0].name == "go-codemagic") skipa i ima label
+
+      scripts:
+      - name: Set Android SDK location
+        script: | 
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+
+          NDK_VER=$(ls $ANDROID_SDK_ROOT/ndk | head -1)
+
+          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/$NDK_VER" >> "$CM_BUILD_DIR/local.properties"
+
+          echo "Installed NDK version: $NDK_VER"
+
+      - name: Build Android release
+        script: | 
+          LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME")
+          if [ -z $LATEST_GOOGLE_PLAY_BUILD_NUMBER ]; then
+            # fallback in case no build number was found from Google Play.
+            # Alternatively, you can `exit 1` to fail the build
+            # BUILD_NUMBER is a Codemagic built-in variable tracking the number
+            # of times this workflow has been built
+              UPDATED_BUILD_NUMBER=$BUILD_NUMBER
+          else
+              UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
+              [--tracks testingtrack]
+          fi
+          ./gradlew bundleRelease \
+              -PversionCode=$UPDATED_BUILD_NUMBER \
+              -PversionName=1.0.$UPDATED_BUILD_NUMBER 
+      - name: Run list
+        script: | 
+
+
+          emulator -list-avds
+         
+          echo "ANDROID_AVD_HOM= $ANDROID_AVD_HOME"
+          echo "ANDROID_SDK_HOME= $ANDROID_SDK_HOME"
+          echo "HOME= $HOME" #here is no file emulator.ini in $HOME/.android/avd - zapravo nema avd foldera
+      - name: Run emulator
+        script: | 
+          cd $ANDROID_HOME/tools
+          emulator -avd emulator &
+          adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+      artifacts:
+        - app/build/outputs/**/*.aab 
+        - app/build/outputs/**/*.apk
+
+      publishing: 
+          email:
+            recipients:
+              - david@nevercode.io
+            notify:
+              success: true
+              failure: false
+          # firebase:
+          #     firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
+          google_play:
+            credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS3
+            track: testingtrack

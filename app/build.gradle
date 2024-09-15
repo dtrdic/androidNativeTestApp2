@@ -24,7 +24,7 @@ android {
     namespace 'com.codemagic.dtrdic7'
     compileSdk 33
         def latestGooglePlayBuildNumber = Integer.valueOf(System.env.LATEST_GOOGLE_PLAY_BUILD_NUMBER ?: System.env.BUILD_NUMBER ?: 0)
-
+    ndkVersion "21.4.7075529"
 
     defaultConfig {
         applicationId "com.codemagic.dtrdic7"
