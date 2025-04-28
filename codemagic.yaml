@@ -63,7 +63,7 @@ workflows:
                 -PversionName=1.0.$UPDATED_BUILD_NUMBER 
         artifacts:
           - app/build/outputs/**/*.aab
-          - app/build/outputs/**/*.apk
+          - app/build/outputs/apk/release/*.apk
         publishing: 
             email:
               recipients:
