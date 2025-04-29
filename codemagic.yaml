@@ -58,12 +58,14 @@ workflows:
                 [--tracks testingtrack]
             fi
             cd android
-            ./gradlew assembleRelease \
+            ./gradlew bundleRelease \
                 -PversionCode=$UPDATED_BUILD_NUMBER \
                 -PversionName=1.0.$UPDATED_BUILD_NUMBER 
+
+                 #./gradlew assembleRelease \
         artifacts:
-          - app/build/outputs/**/*.aab
-          - app/build/outputs/apk/release/*.apk
+          - 2app/build/outputs/**/*.aab
+          - 2app/build/outputs/apk/release/*.apk
         publishing: 
             email:
               recipients:
